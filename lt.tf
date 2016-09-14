@@ -37,7 +37,7 @@ resource "azurerm_subnet" "private" {
     name = "private"
     resource_group_name = "${azurerm_resource_group.lt.name}"
     virtual_network_name = "${azurerm_virtual_network.ltNetwork.name}"
-    address_prefix = "11.0.3.0/24"
+    address_prefix = "11.0.2.0/24"
     network_security_group_id = "${azurerm_network_security_group.ltdbNSG.id}"
 }
 
