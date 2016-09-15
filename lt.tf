@@ -114,7 +114,7 @@ resource "azurerm_storage_account" "swebacnt" {
     location = "westus"
     account_type = "Standard_LRS"
     tags {
-        environment = "staging"
+        environment = "lt"
     }
 }
 
@@ -168,7 +168,7 @@ resource "azurerm_virtual_machine" "weblt01" {
     }
 
     tags {
-        environment = "staging"
+        environment = "lt"
     }
 }
 
@@ -178,7 +178,7 @@ resource "azurerm_storage_account" "sdbacnt" {
     location = "westus"
     account_type = "Standard_LRS"
         tags {
-        environment = "staging"
+        environment = "lt"
     }
 }
 
@@ -230,7 +230,7 @@ resource "azurerm_virtual_machine" "dblt01" {
     }
 
     tags {
-        environment = "staging"
+        environment = "lt"
     }
 }
 
