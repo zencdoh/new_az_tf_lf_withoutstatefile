@@ -173,7 +173,7 @@ resource "azurerm_virtual_machine" "weblt01" {
     }
 }
 
-resource "azurerm_storage_account" "sdbacnt" {
+/*resource "azurerm_storage_account" "sdbacnt" {
     name = "sdbacnt"
     resource_group_name = "${azurerm_resource_group.lt.name}"
     location = "westus"
@@ -197,7 +197,7 @@ resource "azurerm_storage_blob" "sdbblob" {
     storage_container_name = "${azurerm_storage_container.sdbcont.name}"
     type = "page"
     size = 5120
-}
+}*/
 
 resource "azurerm_virtual_machine" "dblt01" {
     name = "dblt01"
@@ -206,16 +206,23 @@ resource "azurerm_virtual_machine" "dblt01" {
     network_interface_ids = ["${azurerm_network_interface.ltdbpudinter.id}"]
     vm_size = "Standard_A0"
 
-    storage_image_reference {
+/*    storage_image_reference {
         publisher = "Canonical"
         offer = "UbuntuServer"
         sku = "14.04.2-LTS"
         version = "latest"
     }
+*/
+    storage_image_reference {
+        publisher = "MicrosoftWindowsServer"
+        offer = "WindowsServer"
+        sku = "2008-R2-SP1"
+        version = "latest"
+    }
 
     storage_os_disk {
-        name = "myosdisk1"
-        vhd_uri = "${azurerm_storage_account.sdbacnt.primary_blob_endpoint}${azurerm_storage_container.sdbcont.name}/myosdisk1.vhd"
+        name = "myosdisk2"
+        vhd_uri = "${azurerm_storage_account.swebacnt.primary_blob_endpoint}${azurerm_storage_container.swebcont.name}/myosdisk2.vhd"
         caching = "ReadWrite"
         create_option = "FromImage"
     }
