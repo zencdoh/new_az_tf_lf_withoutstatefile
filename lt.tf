@@ -33,7 +33,7 @@ resource "azurerm_subnet" "public" {
     virtual_network_name = "${azurerm_virtual_network.ltNetwork.name}"
     address_prefix = "11.0.1.0/24"
     network_security_group_id = "${azurerm_network_security_group.ltwebNSG.id}"
-}
+    }
 
 resource "azurerm_subnet" "private" {
     name = "private"
@@ -113,6 +113,8 @@ resource "azurerm_storage_account" "swebacnt" {
     resource_group_name = "${azurerm_resource_group.lt.name}"
     location = "westus"
     account_type = "Standard_LRS"
+    account_tier             = "Standard"
+    account_replication_type = "LRS"
     tags {
         environment = "lt"
     }
@@ -178,6 +180,8 @@ resource "azurerm_storage_account" "sdbacnt" {
     resource_group_name = "${azurerm_resource_group.lt.name}"
     location = "westus"
     account_type = "Standard_LRS"
+    account_tier             = "Standard"
+    account_replication_type = "LRS"
         tags {
         environment = "lt"
     }
@@ -345,7 +349,6 @@ resource "azurerm_network_security_group" "ltdbNSG" {
     location = "West US"
     resource_group_name = "${azurerm_resource_group.lt.name}"
 }
-
 resource "azurerm_network_security_rule" "RDP-App" {
     name = "RDP-App"
     priority = 100
@@ -359,7 +362,6 @@ resource "azurerm_network_security_rule" "RDP-App" {
     resource_group_name = "${azurerm_resource_group.lt.name}"
     network_security_group_name = "${azurerm_network_security_group.ltdbNSG.name}"
 }
-
 resource "azurerm_network_security_rule" "R1443" {
     name = "R1433"
     priority = 200
@@ -373,11 +375,9 @@ resource "azurerm_network_security_rule" "R1443" {
     resource_group_name = "${azurerm_resource_group.lt.name}"
     network_security_group_name = "${azurerm_network_security_group.ltdbNSG.name}"
 }
-
 output "Application URLs: " {
         value = "${azurerm_public_ip.ltweb01pub.ip_address}"
 }
-
 output "DNS entry" {
         value = "web_pub.azr.zencloud.com"
 }
